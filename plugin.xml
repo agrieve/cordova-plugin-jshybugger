@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+    id="jshybugger"
+    version="1.2.2">
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+  </engines>
+  <name>JsHybugger</name>
+
+  <platform name="android">
+    <source-file src="jshybugger-bundle-1.2.2.jar" target-dir="libs" />
+    <source-file src="JsHybuggerPlugin.java" target-dir="src/org/jshybugger" />
+    <js-module src="jshybuggermain.js" name="JsHybuggerMain">
+      <runs />
+    </js-module>
+
+    <config-file target="res/xml/config.xml" parent="/widget">
+      <feature name="JsHybugger">
+        <param name="android-package" value="org.jshybugger.JsHybuggerPlugin"/>
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <provider android:name="org.jshybugger.DebugContentProvider"
+                android:exported="false"
+                android:authorities="jsHybugger.org" />
+      <service android:name="org.jshybugger.DebugService"
+               android:exported="false"
+               android:enabled="true"/>
+    </config-file>
+  </platform>
+</plugin>
